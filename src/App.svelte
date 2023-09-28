@@ -127,6 +127,8 @@
     padding: 0;
     top: 0;
     width: 297px;
+    max-height: 300px;
+    overflow: scroll;
     border: 1px solid #ddd;
     background-color: #ddd;
   }
