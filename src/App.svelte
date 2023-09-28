@@ -2,15 +2,19 @@
   import { countries } from "./assets/countryData.js";
   import Country from "./lib/Country.svelte";
 
+  let countriesList = countries;
+
   let searchInput; //use with bind:this to focus input
   let inputValue = "";
   let hiLiteIndex = null;
+
+  let selectedCountries = [];
 
   let filteredCountries = [];
   const filterCountries = () => {
     let storageArr = [];
     if (inputValue) {
-      countries.forEach((country) => {
+      countriesList.forEach((country) => {
         if (country.toLowerCase().startsWith(inputValue.toLowerCase())) {
           storageArr = [...storageArr, country];
         }
@@ -30,15 +34,16 @@
   };
 
   const setInputValue = (countryName) => {
-    inputValue = countryName;
+    selectedCountries = [...selectedCountries, countryName];
     filteredCountries = [];
+    const selectedIndex = countriesList.findIndex(c => c === countryName);
+    countriesList.splice(selectedIndex, 1);
     hiLiteIndex = null;
     document.querySelector<HTMLInputElement>("#country-input").focus();
   };
 
   const submitValue = () => {
     if (inputValue) {
-      
       setTimeout(clearInput, 1000);
     }
   };
@@ -82,22 +87,32 @@
         bind:value={inputValue}
         on:input={filterCountries}
       >
+      <!-- FILTERED LIST OF COUNTRIES -->
+      {#if filteredCountries.length > 0}
+        <ul id="autocomplete-items-list">
+          {#each filteredCountries as country, i}
+            <Country itemLabel={country} itemBold={inputValue.length} highlighted={i === hiLiteIndex} on:click={() => setInputValue(country)} />
+          {/each}
+        </ul>
+      {/if}
     </div>
 
     <input type="submit">
 
-    <!-- FILTERED LIST OF COUNTRIES -->
-    {#if filteredCountries.length > 0}
-      <ul id="autocomplete-items-list">
-        {#each filteredCountries as country, i}
-          <Country itemLabel={country} itemBold={inputValue.length} highlighted={i === hiLiteIndex} on:click={() => setInputValue(country)} />
-        {/each}
-      </ul>
-    {/if}
+    
   </form>
+  <div>
+    {#each selectedCountries as s}
+      <p>{s}</p>
+    {/each}
+  </div>
 </main>
 
 <style>
+  main {
+    position: relative;
+  }
+
   div.autocomplete {
     position: relative;
     display: inline-block;
@@ -119,10 +134,10 @@
     color: #fff;
   }
   #autocomplete-items-list {
-    position: relative;
+    position: absolute;
     margin: 0;
     padding: 0;
-    top: 0;
+    top: 100%;
     width: 297px;
     max-height: 300px;
     overflow-y: scroll;
