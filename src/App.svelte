@@ -12,8 +12,7 @@
     if (inputValue) {
       countries.forEach((country) => {
         if (country.toLowerCase().startsWith(inputValue.toLowerCase())) {
-          storageArr = [...storageArr, makeMatchBold(country)];
-          console.log(storageArr)
+          storageArr = [...storageArr, country];
         }
       });
     }
@@ -31,9 +30,7 @@
   };
 
   const setInputValue = (countryName) => {
-    console.log(countryName)
-    inputValue = removeBold(countryName);
-    console.log(inputValue)
+    inputValue = countryName;
     filteredCountries = [];
     hiLiteIndex = null;
     document.querySelector<HTMLInputElement>("#country-input").focus();
@@ -46,17 +43,17 @@
     }
   };
 
-  const makeMatchBold = (str) => {
-    //replace part of (country name === inputValue) with <strong> tags
-    let matched = str.substring(0, inputValue.length);
-    let makeBold = `<strong>${matched}</strong>`;
-    let boldedMatch = str.replace(matched, makeBold);
-    return boldedMatch
-  };
+  // const makeMatchBold = (str) => {
+  //   //replace part of (country name === inputValue) with <strong> tags
+  //   let matched = str.substring(0, inputValue.length);
+  //   let makeBold = `<strong>${matched}</strong>`;
+  //   let boldedMatch = str.replace(matched, makeBold);
+  //   return boldedMatch
+  // };
 
-  const removeBold = (str) => {
-    return str.replace(/<(.)*?>/g, "");
-  };
+  // const removeBold = (str) => {
+  //   return str.replace(/<(.)*?>/g, "");
+  // };
 
   const navigateList = (e) => {
     if (e.key === "ArrowDown" && hiLiteIndex <= filteredCountries.length - 1) {
@@ -93,7 +90,7 @@
     {#if filteredCountries.length > 0}
       <ul id="autocomplete-items-list">
         {#each filteredCountries as country, i}
-          <Country itemLabel={country} highlighted={i === hiLiteIndex} on:click={() => setInputValue(country)} />
+          <Country itemLabel={country} itemBold={inputValue.length} highlighted={i === hiLiteIndex} on:click={() => setInputValue(country)} />
         {/each}
       </ul>
     {/if}

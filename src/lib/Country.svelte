@@ -1,9 +1,13 @@
 <script>
+  /** @type string */
   export let itemLabel;
+  export let itemBold;
   export let highlighted;
 </script>
 
-<li class="autocomplete-items" class:autocomplete-active={highlighted} on:click >{@html itemLabel}</li>
+<li class="autocomplete-items" class:autocomplete-active={highlighted} on:click>
+  <b>{itemLabel.substring(0, itemBold)}</b>{itemLabel.substring(itemBold)}
+</li>
 
 <style>
   .autocomplete-items {
@@ -17,7 +21,7 @@
     cursor: pointer;
     background-color: #fff;
   }
-  .autocomplete-items:hover{
+  .autocomplete-items:hover {
     background-color: #81921f;
     color: white;
   }
