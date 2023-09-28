@@ -5,8 +5,10 @@
   export let highlighted;
 </script>
 
-<li class="autocomplete-items" class:autocomplete-active={highlighted} on:click>
-  <b>{itemLabel.substring(0, itemBold)}</b>{itemLabel.substring(itemBold)}
+<li class="autocomplete-items" class:autocomplete-active={highlighted}>
+  <button on:click class="autocomplete-button">
+    <b>{itemLabel.substring(0, itemBold)}</b>{itemLabel.substring(itemBold)}
+  </button>
 </li>
 
 <style>
@@ -17,16 +19,24 @@
     top: 100%;
     left: 0;
     right: 0;
-    padding: 10px;
     cursor: pointer;
     background-color: #fff;
   }
-  .autocomplete-items:hover {
+
+  .autocomplete-button {
+    border: 0;
+    background: none;
+    padding: 10px;
+    width: 100%;
+  }
+
+  .autocomplete-items .autocomplete-button:hover {
     background-color: #81921f;
     color: white;
   }
 
-  .autocomplete-items:active {
+  .autocomplete-items .autocomplete-button:active,
+  .autocomplete-items .autocomplete-button:focus {
     /** when clicking */
     background-color: dodgerblue;
     color: #fff;
@@ -37,4 +47,5 @@
     background-color: dodgerblue;
     color: #fff;
   }
+
 </style>

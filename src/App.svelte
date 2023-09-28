@@ -125,8 +125,26 @@
     top: 0;
     width: 297px;
     max-height: 300px;
-    overflow: scroll;
+    overflow-y: scroll;
+    scrollbar-width: thin;
     border: 1px solid #ddd;
     background-color: #ddd;
+  }
+
+  #autocomplete-items-list::-webkit-scrollbar {
+    width: 8px;
+    background-color: white;
+  }
+
+  /* #autocomplete-items-list::-webkit-scrollbar-track {
+    width: 8px;
+    background-color: gray;
+  }  */
+
+  #autocomplete-items-list::-webkit-scrollbar-thumb {
+    width: 6px;
+    background-color: lightgrey;
+    border-radius: 4px;
+    border: 1px solid white;
   }
 </style>
