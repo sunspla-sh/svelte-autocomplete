@@ -39,7 +39,7 @@
     const selectedIndex = countriesList.findIndex(c => c === countryName);
     countriesList.splice(selectedIndex, 1);
     hiLiteIndex = null;
-    document.querySelector<HTMLInputElement>("#country-input").focus();
+    clearInput()
   };
 
   const submitValue = () => {
@@ -47,18 +47,6 @@
       setTimeout(clearInput, 1000);
     }
   };
-
-  // const makeMatchBold = (str) => {
-  //   //replace part of (country name === inputValue) with <strong> tags
-  //   let matched = str.substring(0, inputValue.length);
-  //   let makeBold = `<strong>${matched}</strong>`;
-  //   let boldedMatch = str.replace(matched, makeBold);
-  //   return boldedMatch
-  // };
-
-  // const removeBold = (str) => {
-  //   return str.replace(/<(.)*?>/g, "");
-  // };
 
   const navigateList = (e) => {
     if (e.key === "ArrowDown" && hiLiteIndex <= filteredCountries.length - 1) {
